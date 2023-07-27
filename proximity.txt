@@ -1,0 +1,23 @@
+#include <Arduino_APDS9960.h>
+
+void setup() {
+  Serial.begin(9600);
+  while (!Serial); // Wait for Serial Monitor to open
+
+  if (!APDS.begin()) {
+    Serial.println("Error initializing APDS-9960 sensor.");
+    while (true); // Stop forever
+  }
+}
+
+void loop() {
+  // Check if a proximity reading is available.
+  if (APDS.proximityAvailable()) {
+    int proximity = APDS.readProximity();
+    Serial.print("Proximity: ");
+    Serial.println(proximity);
+  }
+  
+  delay(100); // Add a small delay for stability, adjust as needed
+}
+
